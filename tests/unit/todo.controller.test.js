@@ -4,6 +4,7 @@ const httpMocks = require('node-mocks-http');
 const newTodo = require('../mock-data/newTodo.json');
 // mock implementation
 TodoModel.create = jest.fn();
+TodoModel.find = jest.fn();
 // global scope
 let req,res,next;
 //
@@ -21,6 +22,11 @@ describe("TodoController.getTodos", () => {
   //getTodos
   it("should have a getTodos function", () => {
     expect(typeof TodoController.getTodos).toBe("function");
+  });
+  it("should invoke TodoModel.find({})", async () => {
+    //
+    await TodoController.getTodos(req,res,next);
+    expect(TodoModel.find).toBeCalledWith({});
   });
 })
 
