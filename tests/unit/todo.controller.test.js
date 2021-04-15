@@ -19,7 +19,7 @@ beforeEach(()=>{
 
 describe("TodoController.getTodos", () => {
   //getTodos
-  it("should have a getTodo function", () => {
+  it("should have a getTodos function", () => {
     expect(typeof TodoController.getTodos).toBe("function");
   });
 })
