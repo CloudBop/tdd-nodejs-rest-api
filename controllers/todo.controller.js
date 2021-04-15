@@ -1,8 +1,10 @@
 const TodoModel = require('../model/todo.model')
 
-// 
-exports.createTodo = (req,res,next) => {
-  const createdModel = TodoModel.create(req.body);
+// TODO - Connect to MongoDB.
+
+// BUG:WARN - ASYNC/AWAIT.  Promise based - Think implementation
+exports.createTodo = async (req,res,next) => {
+  const createdModel = await TodoModel.create(req.body);
   // 201 is for data created on server correctly
   res.status(201).json(createdModel);
 }
