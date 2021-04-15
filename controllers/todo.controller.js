@@ -24,3 +24,8 @@ exports.getTodos = async (req,res,next) => {
     next(error)
   }
 }
+
+exports.getTodoById = async (req,res,next) => {
+
+  
+}
