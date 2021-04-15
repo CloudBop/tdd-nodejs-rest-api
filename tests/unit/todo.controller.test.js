@@ -2,6 +2,7 @@ const TodoController = require("../../controllers/todo.controller");
 const TodoModel = require("../../model/todo.model");
 const httpMocks = require('node-mocks-http');
 const newTodo = require('../mock-data/newTodo.json');
+const allTodos = require('../mock-data/allTodos.json');
 // mock implementation
 TodoModel.create = jest.fn();
 TodoModel.find = jest.fn();
@@ -28,6 +29,13 @@ describe("TodoController.getTodos", () => {
     await TodoController.getTodos(req,res,next);
     expect(TodoModel.find).toBeCalledWith({});
   });
+  it("should return response status 200 & all todos", async ()=>{
+    TodoModel.find.mockReturnValue(allTodos)
+    await TodoController.getTodos(req,res,next);
+    expect(res.statusCode).toBe(200);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toStrictEqual(allTodos);
+  })
 })
 
 //
