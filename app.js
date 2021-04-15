@@ -1,6 +1,8 @@
 const express = require("express");
 const todoRoutes = require('./routes/todo.routes')
 const app = express();
+const mongodb = require("./mongodb/mongodb.connect");
+mongodb.connect();
 
 // middleware - tell express to respond with json
 app.use(express.json())
