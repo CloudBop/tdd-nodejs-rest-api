@@ -43,3 +43,5 @@ exports.getTodoById = async (req,res,next) => {
     next(error)
   }
 }
+
+exports.updateTodo = async (req,res,next)=>{}
