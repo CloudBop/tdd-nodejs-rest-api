@@ -21,6 +21,11 @@ describe(`${endpointUrl}`, ()=>{
     expect(response.body.title).toBe(firstTodo.title)
     expect(response.body.body).toBe(firstTodo.body)
   })
+  it(`GET ${endpointUrl}:todoId ID does not exist`, async () => {
+    // Has to be valid ID but ! in use in db
+    const response = await request(app).get(endpointUrl+"6078c2a26a544632e6a19000")
+    expect(response.statusCode).toBe(404);
+  })
   it(`POST ${endpointUrl}`, async () => {
     //
     const response = await request(app).post(endpointUrl).send(newTodo);
