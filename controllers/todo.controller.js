@@ -4,7 +4,12 @@ const TodoModel = require('../model/todo.model')
 
 // BUG:WARN - ASYNC/AWAIT.  Promise based - Think implementation
 exports.createTodo = async (req,res,next) => {
-  const createdModel = await TodoModel.create(req.body);
-  // 201 is for data created on server correctly
-  res.status(201).json(createdModel);
+
+  try {
+    const createdModel = await TodoModel.create(req.body);
+    // 201 is for data created on server correctly
+    res.status(201).json(createdModel);
+  } catch (error) {
+    next(error)
+  }
 }
