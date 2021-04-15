@@ -30,6 +30,14 @@ describe("TodoController.getTodoById", () => {
     
     expect(TodoModel.findById).toBeCalledWith("6078c2a26a544632e6a19d78");
   });
+  it("should return json body and response 200", async ()=>{
+    TodoModel.findById.mockReturnValue(newTodo)
+
+    await TodoController.getTodoById(req,res,next);
+    expect(res.statusCode).toBe(200);
+    expect(res._isEndCalled()).toBeTruthy();
+    expect(res._getJSONData()).toBeTruthy();
+  })
 })
 describe("TodoController.getTodos", () => {
   //getTodos
