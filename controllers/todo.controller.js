@@ -17,4 +17,5 @@ exports.createTodo = async (req,res,next) => {
 exports.getTodos = async (req,res,next) => {
 
   //returns all 
+  const createdModel = await TodoModel.find({});
 }
