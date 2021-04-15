@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../../app');
 const newTodo = require('../mock-data/newTodo.json');
 const endpointUrl = "/todos/"
-
+let firstTodo;
 describe(`${endpointUrl}`, ()=>{
   it(`GET ${endpointUrl}`, async () => {
     //
@@ -12,6 +12,14 @@ describe(`${endpointUrl}`, ()=>{
     expect(Array.isArray(response.body)).toBeTruthy()
     expect(typeof response.body[0].title).toBeDefined();
     expect(typeof response.body[0].done).toBeDefined();
+    
+    firstTodo = response.body[0];
+  })
+  it(`GET ${endpointUrl}:todoId`, async () => {
+    const response = await request(app).get(endpointUrl+firstTodo._id)
+    expect(response.statusCode).toBe(200);
+    expect(response.body.title).toBe(firstTodo.title)
+    expect(response.body.body).toBe(firstTodo.body)
   })
   it(`POST ${endpointUrl}`, async () => {
     //
