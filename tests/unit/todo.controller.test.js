@@ -12,7 +12,9 @@ beforeEach(()=>{
   // mock http requests
   req = httpMocks.createRequest();
   res = httpMocks.createResponse();
-  next = null;
+
+  // for handling error 
+  next = jest.fn();
 })
 //
 describe("TodoController.createTodo", () => {
@@ -44,6 +46,16 @@ describe("TodoController.createTodo", () => {
       res._getJSONData()
       // same values, different obj in memory
     ).toStrictEqual(newTodo);
+  });
+
+
+  it("should handle error or app will break", async () => {
+    const errorMessage = {message: "Done property missing"};
+    const rejectedPromise = Promise.reject(errorMessage)
+    TodoModel.create.mockReturnValue(rejectedPromise);
+    // 
+    await TodoController.createTodo(req, res, next);
+    expect(next).toBeCalledWith(errorMessage)
   });
 
 
