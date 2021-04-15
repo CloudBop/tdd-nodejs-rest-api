@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "test": "jest"
+    "test": "jest --watchAll"
   },
   "dependencies": {
     "express": "^4.17.1"
