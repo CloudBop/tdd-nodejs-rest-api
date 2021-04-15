@@ -16,12 +16,16 @@ beforeEach(()=>{
 })
 //
 describe("TodoController.createTodo", () => {
+  
+  beforeEach(()=>{
+    //
+    req.body = newTodo;
+  })
+  
   it("should have a createTodo function", () => {
     expect(typeof TodoController.createTodo).toBe("function");
   });
   it("should invoke TodoModel.create() with arguments", () => {
-    //
-    req.body = newTodo;
     //
     TodoController.createTodo(req,res,next);
     expect(TodoModel.create).toBeCalledWith(newTodo);
@@ -34,7 +38,11 @@ describe("TodoController.createTodo", () => {
   it("should return json body in response", () => {
     TodoModel.create.mockReturnValue(newTodo);
     TodoController.createTodo(req, res, next);
-    expect(res._getJSONData()).toStrictEqual(newTodo);
+    expect( 
+      // short-hand for JSON.parse( response._getData() ); - https://www.npmjs.com/package/node-mocks-http
+      res._getJSONData()
+      // same values, different obj in memory
+    ).toStrictEqual(newTodo);
   });
 
 
