@@ -16,6 +16,14 @@ beforeEach(()=>{
   // for handling error 
   next = jest.fn();
 })
+
+describe("TodoController.getTodos", () => {
+  //getTodos
+  it("should have a getTodo function", () => {
+    expect(typeof TodoController.getTodos).toBe("function");
+  });
+})
+
 //
 describe("TodoController.createTodo", () => {
   
