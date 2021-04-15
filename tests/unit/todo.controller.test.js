@@ -38,6 +38,14 @@ describe("TodoController.getTodoById", () => {
     expect(res._getJSONData()).toStrictEqual(newTodo);
     expect(res._isEndCalled()).toBeTruthy();
   })
+  it("should handle error or app will break", async () => {
+    const errorMessage = {message: "error finding todo"};
+    const rejectedPromise = Promise.reject(errorMessage)
+    TodoModel.findById.mockReturnValue(rejectedPromise);
+    // 
+    await TodoController.getTodoById(req, res, next);
+    expect(next).toBeCalledWith(errorMessage)
+  });
 })
 describe("TodoController.getTodos", () => {
   //getTodos
