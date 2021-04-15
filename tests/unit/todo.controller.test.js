@@ -18,7 +18,11 @@ beforeEach(()=>{
   // for handling error 
   next = jest.fn();
 })
-
+describe("TodoController.getTodoById", () => {
+  it("should have a getTodoById fn",()=>{
+    expect(typeof TodoController.getTodoById).toBe("function");
+  })
+})
 describe("TodoController.getTodos", () => {
   //getTodos
   it("should have a getTodos function", () => {
