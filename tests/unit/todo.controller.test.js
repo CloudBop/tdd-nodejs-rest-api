@@ -52,6 +52,12 @@ describe("TodoController.deleteTodo", () => {
     await TodoController.deleteTodo(req, res, next);
     expect(next).toBeCalledWith(errorMessage)
   });
+  it("deleteTodo return 404 if todo doesnt exist", async ()=>{
+    TodoModel.findByIdAndDelete.mockReturnValue(null);
+    await TodoController.deleteTodo(req,res,next);
+    expect(res.statusCode).toBe(404);
+    expect(res._isEndCalled()).toBeTruthy();
+  })
   
 })
 
