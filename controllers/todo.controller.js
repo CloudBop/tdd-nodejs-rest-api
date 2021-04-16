@@ -50,4 +50,12 @@ exports.updateTodo = async (req,res,next)=>{
     new: true,
     useFindAndModify: false
   });
+
+  if(todo){
+      res.status(200).json(todo);
+  }
+  // else {
+  //   //  res.status(404).json(null); - works too
+  //   res.status(404).send();
+  // }
 }
