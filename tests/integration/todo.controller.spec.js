@@ -2,7 +2,7 @@ const request = require('supertest');
 const app = require('../../app');
 const newTodo = require('../mock-data/newTodo.json');
 const endpointUrl = "/todos/"
-let firstTodo;
+let firstTodo, newTodoId;
 describe(`${endpointUrl}`, ()=>{
   it(`GET ${endpointUrl}`, async () => {
     //
@@ -33,6 +33,7 @@ describe(`${endpointUrl}`, ()=>{
     expect(response.statusCode).toBe(201);
     expect(response.body.title).toBe(newTodo.title);
     expect(response.body.done).toBe(newTodo.done);
+    newTodoId = response.body._id
   })
   it(`should 500 on malformed req data POST as json !html ${endpointUrl}`, async () => {
     //
@@ -43,5 +44,15 @@ describe(`${endpointUrl}`, ()=>{
     expect(response.body).toStrictEqual({
         "message": "Todo validation failed: done: Path `done` is required."
     })
+  })
+  it(`PUT${endpointUrl} should updateTodo`, async ()=>{
+    const testData = {title: "Make integration test for PUT", done:true}
+    // 
+    const response = await request(app).put(endpointUrl+newTodoId).send(testData);
+
+    expect(response.statusCode).toBe(200);
+    // 
+    expect(response.body.title).toBe(testData.title);
+    expect(response.body.done).toBe(testData.done);
   })
 })
