@@ -47,7 +47,7 @@ describe("TodoController.deleteTodo", () => {
   it("should handle error in deleteTodos or app will break", async () => {
     const errorMessage = {message: "something went wrong"};
     const rejectedPromise = Promise.reject(errorMessage)
-    TodoModel.findByIdAndUpdate.mockReturnValue(rejectedPromise);
+    TodoModel.findByIdAndDelete.mockReturnValue(rejectedPromise);
     // 
     await TodoController.deleteTodo(req, res, next);
     expect(next).toBeCalledWith(errorMessage)
