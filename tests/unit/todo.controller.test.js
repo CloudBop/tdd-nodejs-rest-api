@@ -29,6 +29,12 @@ describe("TodoController.deleteTodo", () => {
   it("should have a deleteTodo fn",()=>{
     expect(typeof TodoController.deleteTodo).toBe("function");
   })
+  it("should invoke TodoModel.findByIdAndDelete with route params", async () => {
+    //
+    req.params.todoId= todoId;
+    await TodoController.updateTodo(req,res,next);
+    expect(TodoModel.findByIdAndDelete).toBeCalledWith(todoId);
+  });
   
 })
 
