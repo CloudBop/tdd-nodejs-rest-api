@@ -32,7 +32,7 @@ describe("TodoController.deleteTodo", () => {
   it("should invoke TodoModel.findByIdAndDelete with route params", async () => {
     //
     req.params.todoId= todoId;
-    await TodoController.updateTodo(req,res,next);
+    await TodoController.deleteTodo(req,res,next);
     expect(TodoModel.findByIdAndDelete).toBeCalledWith(todoId);
   });
   
