@@ -10,7 +10,7 @@ const TodoSchema = new mongoose.Schema({
     required:true
   }
 });
-// create Todos Model/Interface in MongoDB
+// create todos Model/Interface in MongoDB EG clustername->todos 
 const TodoModel = mongoose.model("Todo", TodoSchema)
 
 module.exports = TodoModel
