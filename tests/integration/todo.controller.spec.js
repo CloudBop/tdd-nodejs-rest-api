@@ -3,6 +3,8 @@ const app = require('../../app');
 const newTodo = require('../mock-data/newTodo.json');
 const endpointUrl = "/todos/"
 let firstTodo, newTodoId;
+const noneExistId = "6078c2a26a544632e6a19000"
+const testData = {title: "Make integration test for PUT", done:true}
 describe(`${endpointUrl}`, ()=>{
   it(`GET ${endpointUrl}`, async () => {
     //
@@ -23,7 +25,7 @@ describe(`${endpointUrl}`, ()=>{
   })
   it(`GET ${endpointUrl}:todoId ID does not exist`, async () => {
     // Has to be valid ID but ! in use in db
-    const response = await request(app).get(endpointUrl+"6078c2a26a544632e6a19000")
+    const response = await request(app).get(endpointUrl+noneExistId)
     expect(response.statusCode).toBe(404);
   })
   it(`POST ${endpointUrl}`, async () => {
@@ -46,7 +48,7 @@ describe(`${endpointUrl}`, ()=>{
     })
   })
   it(`PUT${endpointUrl} should updateTodo`, async ()=>{
-    const testData = {title: "Make integration test for PUT", done:true}
+    
     // 
     const response = await request(app).put(endpointUrl+newTodoId).send(testData);
     expect(response.statusCode).toBe(200);
@@ -56,7 +58,17 @@ describe(`${endpointUrl}`, ()=>{
   })
   it(`PUT ${endpointUrl}:todoId ID does not exist`, async () => {
     // Has to be valid ID but ! in use in db
-    const response = await request(app).get(endpointUrl+"6000c2a26a544632e6a19000")
+    const response = await request(app).get(endpointUrl+noneExistId)
     expect(response.statusCode).toBe(404);
   })
+
+  it(`Delete${endpointUrl} should deleteTodo`, async ()=>{
+    // 
+    const response = await request(app).delete(endpointUrl+newTodoId).send();
+    expect(response.statusCode).toBe(204);
+    // 
+    expect(response.body.title).toBe(testData.title);
+    expect(response.body.done).toBe(testData.done);
+  })
+  
 })
