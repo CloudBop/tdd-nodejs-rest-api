@@ -70,5 +70,11 @@ describe(`${endpointUrl}`, ()=>{
     expect(response.body.title).toBe(testData.title);
     expect(response.body.done).toBe(testData.done);
   })
+
+  it(`Delete${endpointUrl} should 404`, async ()=>{
+    // 
+    const response = await request(app).delete(endpointUrl+noneExistId).send();
+    expect(response.statusCode).toBe(404);
+  })
   
 })
