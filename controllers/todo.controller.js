@@ -66,3 +66,5 @@ exports.updateTodo = async (req,res,next)=>{
     next(error)   
   }
 }
+
+exports.deleteTodo = async (req,res,next)=>{}
