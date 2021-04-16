@@ -35,6 +35,15 @@ describe("TodoController.deleteTodo", () => {
     await TodoController.deleteTodo(req,res,next);
     expect(TodoModel.findByIdAndDelete).toBeCalledWith(todoId);
   });
+  it("should return json body and response 204 (delete success)", async ()=>{
+    TodoModel.findByIdAndDelete.mockReturnValue(newTodo)
+    req.params.todoId= todoId;
+    // req.body = newTodo; not necessary, Mock with return newTodo regardless
+    await TodoController.deleteTodo(req,res,next);
+    expect(res.statusCode).toBe(204);
+    expect(res._getJSONData()).toStrictEqual(newTodo);
+    expect(res._isEndCalled()).toBeTruthy();
+  })
   
 })
 
