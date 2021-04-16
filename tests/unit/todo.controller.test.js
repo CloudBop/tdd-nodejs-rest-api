@@ -53,6 +53,13 @@ describe("TodoController.updateTodo", () => {
     await TodoController.updateTodo(req, res, next);
     expect(next).toBeCalledWith(errorMessage)
   });
+  it("updateTodo return 404 if todo doesnt exist", async ()=>{
+    TodoModel.findByIdAndUpdate.mockReturnValue(null);
+    await TodoController.updateTodo(req,res,next);
+    
+    expect(res.statusCode).toBe(404);
+    expect(res._isEndCalled()).toBeTruthy();
+  })
   
 })
 describe("TodoController.getTodoById", () => {
