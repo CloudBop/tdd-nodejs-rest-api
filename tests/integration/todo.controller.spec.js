@@ -49,10 +49,14 @@ describe(`${endpointUrl}`, ()=>{
     const testData = {title: "Make integration test for PUT", done:true}
     // 
     const response = await request(app).put(endpointUrl+newTodoId).send(testData);
-
     expect(response.statusCode).toBe(200);
     // 
     expect(response.body.title).toBe(testData.title);
     expect(response.body.done).toBe(testData.done);
+  })
+  it(`PUT ${endpointUrl}:todoId ID does not exist`, async () => {
+    // Has to be valid ID but ! in use in db
+    const response = await request(app).get(endpointUrl+"6000c2a26a544632e6a19000")
+    expect(response.statusCode).toBe(404);
   })
 })
