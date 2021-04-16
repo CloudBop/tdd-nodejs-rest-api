@@ -40,7 +40,7 @@ describe("TodoController.deleteTodo", () => {
     req.params.todoId= todoId;
     // req.body = newTodo; not necessary, Mock with return newTodo regardless
     await TodoController.deleteTodo(req,res,next);
-    expect(res.statusCode).toBe(204);
+    expect(res.statusCode).toBe(200);
     expect(res._getJSONData()).toStrictEqual(newTodo);
     expect(res._isEndCalled()).toBeTruthy();
   })

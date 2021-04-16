@@ -65,7 +65,7 @@ describe(`${endpointUrl}`, ()=>{
   it(`Delete${endpointUrl} should deleteTodo`, async ()=>{
     // 
     const response = await request(app).delete(endpointUrl+newTodoId).send();
-    expect(response.statusCode).toBe(204);
+    expect(response.statusCode).toBe(200);
     // 
     expect(response.body.title).toBe(testData.title);
     expect(response.body.done).toBe(testData.done);
