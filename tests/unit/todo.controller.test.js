@@ -3,11 +3,14 @@ const TodoModel = require("../../model/todo.model");
 const httpMocks = require('node-mocks-http');
 const newTodo = require('../mock-data/newTodo.json');
 const allTodos = require('../mock-data/allTodos.json');
+// shorthand
+// jest.mock('../../model/todo.model.js')
 // mock implementation
 TodoModel.create = jest.fn();
 TodoModel.find = jest.fn();
 TodoModel.findById = jest.fn();
 TodoModel.findByIdAndUpdate = jest.fn();
+TodoModel.findByIdAndDelete = jest.fn();
 // global scope
 let req,res,next;
 let todoId = "6078c2a26a544632e6a19d78"
@@ -20,6 +23,13 @@ beforeEach(()=>{
 
   // for handling error 
   next = jest.fn();
+})
+
+describe("TodoController.deleteTodo", () => {
+  it("should have a deleteTodo fn",()=>{
+    expect(typeof TodoController.deleteTodo).toBe("function");
+  })
+  
 })
 
 describe("TodoController.updateTodo", () => {
