@@ -29,8 +29,12 @@ describe("TodoController.updateTodo", () => {
   it("should invoke TodoModel.findByIdAndUpdate with route params", async () => {
     //
     req.params.todoId= todoId;
+    req.body = newTodo;
     await TodoController.updateTodo(req,res,next);
-    expect(TodoModel.findByIdAndUpdate).toBeCalledWith(todoId);
+    expect(TodoModel.findByIdAndUpdate).toBeCalledWith(todoId, newTodo, {
+      new: true,
+      useFindAndModify: false
+    });
   });
   
 })
