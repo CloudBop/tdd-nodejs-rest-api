@@ -39,7 +39,7 @@ describe("TodoController.updateTodo", () => {
   it("should return json body and response 200", async ()=>{
     TodoModel.findByIdAndUpdate.mockReturnValue(newTodo)
     req.params.todoId= todoId;
-    req.body = newTodo;
+    // req.body = newTodo; not necessary, Mock with return newTodo regardless
     await TodoController.updateTodo(req,res,next);
     expect(res.statusCode).toBe(200);
     expect(res._getJSONData()).toStrictEqual(newTodo);
