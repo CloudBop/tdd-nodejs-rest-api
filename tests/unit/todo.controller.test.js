@@ -44,6 +44,14 @@ describe("TodoController.deleteTodo", () => {
     expect(res._getJSONData()).toStrictEqual(newTodo);
     expect(res._isEndCalled()).toBeTruthy();
   })
+  it("should handle error in deleteTodos or app will break", async () => {
+    const errorMessage = {message: "something went wrong"};
+    const rejectedPromise = Promise.reject(errorMessage)
+    TodoModel.findByIdAndUpdate.mockReturnValue(rejectedPromise);
+    // 
+    await TodoController.deleteTodo(req, res, next);
+    expect(next).toBeCalledWith(errorMessage)
+  });
   
 })
 
